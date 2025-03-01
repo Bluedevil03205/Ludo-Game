@@ -1,14 +1,20 @@
-FROM node:14.17.0
+# Use official Node.js image as base
+FROM node:18
+
+# Set working directory inside the container
 WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-ARG NODE_ENV
-RUN if [ "$NODE_ENV" = "development" ]; \
-        then npm install; \
-        else npm install --only=production; \
-        fi
+# Install dependencies
+RUN npm install
 
-COPY . ./
-ENV PORT 3000
-EXPOSE $PORT
-CMD ["npm","start"]
+# Copy all project files
+COPY . .
+
+# Expose port 3000
+EXPOSE 3000
+
+# Start the server
+CMD ["node", "server.js"]
