@@ -209,3 +209,17 @@ const PORT = process.env.PORT || 5000; // Use PORT from environment
 server.listen(PORT, () => {
     console.log(`Ludo game server running on port ${PORT}`);
 });
+
+
+
+const socket = io("https://ludo-game-1t4h.onrender.com");
+
+// Listen for game updates
+socket.on("updateGame", (gameState) => {
+    console.log("Updated Game State: ", gameState);
+});
+
+// Roll dice
+document.getElementById("rollDice").addEventListener("click", () => {
+    socket.emit("rollDice");
+});
