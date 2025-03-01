@@ -188,7 +188,6 @@ server.listen(PORT,()=>{
 
 require("dotenv").config(); // Load .env variables (optional for local use)
 
-const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const cors = require("cors");
@@ -223,3 +222,10 @@ socket.on("updateGame", (gameState) => {
 document.getElementById("rollDice").addEventListener("click", () => {
     socket.emit("rollDice");
 });
+
+
+
+require("dotenv").config();
+
+const secretKey = process.env.SECRET_KEY;
+console.log("Secret Key:", secretKey);
