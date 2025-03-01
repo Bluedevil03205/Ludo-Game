@@ -181,3 +181,31 @@ app.use(function (req, res) {
 server.listen(PORT,()=>{
     console.log(`The server has started working on http://localhost:${PORT}`);
 });
+
+
+
+
+
+require("dotenv").config(); // Load .env variables (optional for local use)
+
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+const cors = require("cors");
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+app.use(cors());
+
+const PORT = process.env.PORT || 5000; // Use PORT from environment
+
+server.listen(PORT, () => {
+    console.log(`Ludo game server running on port ${PORT}`);
+});
