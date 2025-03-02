@@ -1,9 +1,15 @@
 {
   "dependencies": {
+    "docker": "^0.2.14",
     "@capacitor/core": "^7.0.1",
     "dotenv": "^16.4.7",
     "expres": "^0.0.5",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+
+    "scripts": {
+      "start": "node server.js"
   }
+}
+
 }

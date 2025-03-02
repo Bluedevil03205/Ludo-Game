@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "docker": "^0.2.14"
+    "docker": "^0.2.14",
+    "expres": "^0.0.5",
+    "express": "^4.21.2"
   },
   "scripts": {
     "start": "node server.js"
