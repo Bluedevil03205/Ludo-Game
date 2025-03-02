@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Default route for homepage
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "app", "views", "index.html"));
 });
 
 // Socket.io connection
