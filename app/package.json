@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+    "dependencies": {
     "docker": "^0.2.14",
     "@capacitor/core": "^7.0.1",
     "dotenv": "^16.4.7",
