@@ -1,6 +1,22 @@
 const path = require("path");
-const ludoController = require(path.join(__dirname, "..", "..", "controllers", "ludoController"));
 
+const ludoController = require("../app/controllers/ludoController.js");
+
+
+
+
+
+
+const router = express.Router();
+
+
+
+
+
+// Example route
+router.get("/", ludoController.test);
+
+module.exports = router;
 
 router
     .route('/')

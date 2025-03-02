@@ -1,8 +1,8 @@
 const {join} = require('path')
-const views = join(__dirname, '../views');
+const views = join(__dirname, '../publish');
 
 const path = require("path");
-const ludoController = require(path.join(__dirname, "..", "controllers", "ludoController"));
+const ludoController = require(path.join(__dirname, "app", "controllers", "ludoController"));
 
 
 module.exports = {
