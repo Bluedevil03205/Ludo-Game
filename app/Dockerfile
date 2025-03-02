@@ -14,4 +14,4 @@ RUN npm install
 COPY . .
 
 ENTRYPOINT ["node", "server.js"]
-CMD ["--port", "10000"]
+CMD ["--port", "3000"]
