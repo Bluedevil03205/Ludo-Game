@@ -12,11 +12,11 @@ const rooms = {}; // Stores active game rooms
 const win = {};   // Stores win validation data
 
 // ✅ Serve static files correctly
-app.use(express.static(path.join(__dirname, "./public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // ✅ Default route for homepage
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "v" "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ✅ Socket.io connection
