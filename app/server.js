@@ -3,7 +3,8 @@ const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
-const {PORT} = require('./config/config');
+let PORT = process.env.PORT || 3000;
+
 
 const rootRouter = require('./routes/rootRouter')
 const ludoRouter = require('./routes/ludoRouter')
