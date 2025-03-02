@@ -13,8 +13,5 @@ RUN npm install
 # Copy all project files
 COPY . .
 
-# Expose port 3000
-EXPOSE 3000
-
-# Start the server
-CMD ["node", "server.js"]
+ENTRYPOINT ["node", "server.js"]
+CMD ["--port", "3000"]

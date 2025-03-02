@@ -3,8 +3,6 @@ const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
-let PORT = process.env.PORT || 3000;
-
 
 const rootRouter = require('./routes/rootRouter')
 const ludoRouter = require('./routes/ludoRouter')
@@ -180,6 +178,15 @@ app.use(function (req, res) {
 });
 
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+
+require("dotenv").config();  // Load environment variables
+
+
+const PORT = process.env.PORT || 3000;  // Use Render's port
+const MONGO_URI = process.env.MONGO_URI;  // Database connection
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
