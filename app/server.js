@@ -12,7 +12,7 @@ const io = socketIo(server);
 app.use(cors());
 
 // Start server
-const PORT = process.env.PORT || 5001;
-server.listen(PORT, () => {
-    console.log(`Ludo game server running on port ${PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 });

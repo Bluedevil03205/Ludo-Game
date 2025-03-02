@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "docker": "^0.2.14"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

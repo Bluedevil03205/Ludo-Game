@@ -1,0 +1,5 @@
+services:
+  ludo-game:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
