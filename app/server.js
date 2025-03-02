@@ -177,7 +177,8 @@ app.use(function (req, res) {
     res.end('404!');
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-
+// Start server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
