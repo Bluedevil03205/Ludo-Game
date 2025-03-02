@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try {
-            mSocket = IO.socket("https://ludo-game.onrender.com");
+            mSocket = IO.socket("https://ludo-game-tsqb.onrender.com");
             mSocket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();

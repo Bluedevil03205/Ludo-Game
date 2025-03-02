@@ -1,109 +1,46 @@
-const {join} = require('path');
-const express = require('express');
-const {createServer} = require('http');
-const socketIO = require('socket.io');
-
-
-const rootRouter = require('./routes/rootRouter')
-const ludoRouter = require('./routes/ludoRouter')
-
-let {rooms,NumberOfMembers,win} = require('./models/model');
-
+const express = require("express");
 const app = express();
-const server = createServer(app);
-const io = socketIO(server, {
-    cors: {
-      origin: '*'
-    }});
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+const path = require("path");
+require("dotenv").config();
 
-app.use(express.static(join(__dirname, 'public/')));
-app.use(express.urlencoded({ extended: true }));
-app.enable('trust proxy');
+// Serve static files (if frontend exists)
+app.use(express.static(path.join(__dirname, "public")));
 
-//
-///sockets
-//
-let nsp = io.of('/ludo');
-
-nsp.on('connection',(socket)=>{
-    console.log('A User has connected to the game');
-    socket.on('fetch',(data,cb)=>{
-        try{
-            let member_id = generate_member_id(socket.id,data);
-            socket.join(data);
-            if(member_id !== -1){
-                cb(Object.keys(rooms[data]),member_id);
-                socket.to(data).emit('new-user-joined',{id:member_id});
-            }else{
-                console.log('There is someone with m_id = -1');
-            }
-        }
-        catch(err){
-            if(err.name === 'TypeError'){
-                socket.emit('imposter');
-            }
-            console.log("hello",err,rooms);
-        }
-    });
-
-    socket.on('roll-dice',(data,cb)=>{
-        rooms[data.room][data.id]['num'] = Math.floor((Math.random()*6) + 1);
-        data['num'] = rooms[data.room][data.id]['num']
-        nsp.to(data.room).emit('rolled-dice',data);
-        cb(rooms[data.room][data.id]['num']);
-    })
-
-    socket.on('chance',(data)=>{
-        nsp.to(data.room).emit('is-it-your-chance',data.nxt_id);
-    });
-
-    socket.on('random',(playerObj,cb)=>{
-        // playerObj ={
-        //     room: room_code,
-        //     id: myid,
-        //     pid: pid,
-        //     num: temp
-        // }
-        if(playerObj['num'] != rooms[playerObj.room][playerObj.id]['num']){
-            console.log('Someone is trying to cheat!');
-        }
-        playerObj['num'] = rooms[playerObj.room][playerObj.id]['num']
-        nsp.to(playerObj.room).emit('Thrown-dice', playerObj);
-        cb(playerObj['num']);
-    });
-
-    socket.on('WON',(OBJ)=>{
-        if(validateWinner(OBJ,socket)){
-            delete win[OBJ.room];
-            delete NumberOfMembers[OBJ.room];
-            if(rooms[OBJ.room]){
-                delete rooms[OBJ.room];
-            }
-            nsp.to(OBJ.room).emit('winner',OBJ.id);
-        }
-    });
-
-    socket.on('resume',(data,cb)=>{
-        socket.to(data.room).emit('resume',data);
-        NumberOfMembers[data.room].members<=2?2:NumberOfMembers[data.room].members -= 1;
-        NumberOfMembers[data.room].constant = true;
-        cb();
-    });
-
-    socket.on('wait',(data,cb)=>{
-        socket.to(data.room).emit('wait',data);
-        cb();
-    });
-
-    socket.on('disconnect',()=>{
-        let roomKey = deleteThisid(socket.id);
-        if(roomKey != undefined){
-            console.log(rooms[roomKey.room],socket.id);
-            socket.to(roomKey.room).emit('user-disconnected',roomKey.key)
-        }
-        console.log('A client just got disconnected');
-    });
+// Default route for homepage
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+// Socket.io connection
+io.on("connection", (socket) => {
+  console.log("A user connected");
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //
@@ -167,26 +104,13 @@ function validateWinner(OBJ,socket){
 
 }
 
-//
-///Routes management
-//
-app.use('/', rootRouter);
-app.use('/ludo', ludoRouter);
-app.use(function (req, res) {
-    res.statusCode = 404;
-    res.end('404!');
-});
-
-
 
 
 require("dotenv").config();  // Load environment variables
 
 
-const PORT = process.env.PORT || 3000;  // Use Render's port
-const MONGO_URI = process.env.MONGO_URI;  // Database connection
-
-app.listen(PORT, () => {
+// Start the server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
