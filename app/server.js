@@ -3,14 +3,22 @@ const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
+const path = require("path");  // Import the path module
+
+
+const app = express();
+
+
 const {PORT} = require('./config/config');
 
-const rootRouter = require('./routes/rootRouter')
-const ludoRouter = require('./routes/ludoRouter')
+const rootRouter = require(path.join(__dirname, "public", "routes", "rootRouter.js"));
+
+const ludoRouter = require(path.join(__dirname, "public", "routes", "ludoRouter.js"));
+
 
 let {rooms,NumberOfMembers,win} = require('./models/model');
 
-const app = express();
+
 const server = createServer(app);
 const io = socketIO(server, {
     cors: {

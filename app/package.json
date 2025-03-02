@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js"
   },
+
   "dependencies": {
     "@capacitor/core": "^7.0.1",
     "dotenv": "^16.4.7",

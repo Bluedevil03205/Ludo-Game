@@ -1,7 +1,7 @@
 const {join} = require('path')
 let {rooms,NumberOfMembers,win} = require('../models/model')
 
-const views = join(__dirname, '../views');
+const views = join(__dirname, '../public');
 
 exports.get = (req,res)=>{
     res.sendFile('index.html', { root: views });

@@ -1,10 +1,8 @@
-const router = require("express").Router();
-const rootController = require('../controllers/rootController')
+const express = require("express");
+const router = express.Router();
 
-router
-    .route('/')
-    .get(rootController.get)
-    .post(rootController.post);
-
+router.get("/", (req, res) => {
+  res.send("Ludo Game API is working!");
+});
 
 module.exports = router;

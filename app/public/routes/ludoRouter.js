@@ -1,5 +1,6 @@
-const router = require("express").Router();
-const ludoController = require('../controllers/ludoController')
+const path = require("path");
+const ludoController = require(path.join(__dirname, "..", "..", "controllers", "ludoController"));
+
 
 router
     .route('/')
