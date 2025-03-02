@@ -1,9 +1,9 @@
-const path = require('path');
+const {join} = require('path');
 const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
-
+const {PORT} = require('./config/config');
 
 const rootRouter = require('./routes/rootRouter')
 const ludoRouter = require('./routes/ludoRouter')
@@ -17,12 +17,9 @@ const io = socketIO(server, {
       origin: '*'
     }});
 
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-
+app.use(express.static(join(__dirname, 'public/')));
+app.use(express.urlencoded({ extended: true }));
+app.enable('trust proxy');
 
 //
 ///sockets
@@ -181,9 +178,6 @@ app.use(function (req, res) {
     res.end('404!');
 });
 
-// ✅ Start the server
-const PORT = process.env.PORT ||3000;
-server.listen(PORT, () => {
-console.log(`Server running on port ${PORT}`);
-});
 
+// Start Server
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
