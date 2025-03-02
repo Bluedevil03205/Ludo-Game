@@ -16,7 +16,7 @@ const io = socketIO(server, {
       origin: '*'
     }});
 
-app.use(express.static(join(__dirname, 'public/')));
+app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.enable('trust proxy');
 
