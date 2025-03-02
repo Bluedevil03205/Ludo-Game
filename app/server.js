@@ -3,6 +3,7 @@ const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
 
+const {PORT} = require('./config/config');
 
 const rootRouter = require('./routes/rootRouter')
 const ludoRouter = require('./routes/ludoRouter')
@@ -16,7 +17,7 @@ const io = socketIO(server, {
       origin: '*'
     }});
 
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static(join(__dirname, 'public/')));
 app.use(express.urlencoded({ extended: true }));
 app.enable('trust proxy');
 
@@ -177,7 +178,7 @@ app.use(function (req, res) {
     res.end('404!');
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
