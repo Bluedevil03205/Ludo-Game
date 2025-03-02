@@ -1,4 +1,4 @@
-const {join} = require('path');
+const path = require('path');
 const express = require('express');
 const {createServer} = require('http');
 const socketIO = require('socket.io');
@@ -17,9 +17,12 @@ const io = socketIO(server, {
       origin: '*'
     }});
 
-app.use(express.static(join(__dirname, 'public/')));
-app.use(express.urlencoded({ extended: true }));
-app.enable('trust proxy');
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+
 
 //
 ///sockets
