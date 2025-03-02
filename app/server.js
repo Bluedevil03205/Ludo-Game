@@ -4,6 +4,7 @@ const {createServer} = require('http');
 const socketIO = require('socket.io');
 
 
+
 const rootRouter = require('./routes/rootRouter')
 const ludoRouter = require('./routes/ludoRouter')
 
@@ -177,6 +178,9 @@ app.use(function (req, res) {
     res.end('404!');
 });
 
-// Start server
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ✅ Start the server
+const PORT = process.env.PORT ||3000;
+server.listen(PORT, () => {
+console.log(`Server running on port ${PORT}`);
+});
+
