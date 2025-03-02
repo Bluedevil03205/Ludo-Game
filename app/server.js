@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Default route for homepage
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "app", "views", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Socket.io connection
@@ -89,7 +89,7 @@ require("dotenv").config();  // Load environment variables
 
 
 // Start the server
-const PORT = process.env.PORT || 10000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    const PORT = process.env.PORT || 10000;
+    server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
