@@ -1,6 +1,7 @@
 const path = require("path");
 
-const ludoController = require("../app/controllers/ludoController.js");
+const ludoController = require('../../controllers/ludoController.js');
+
 
 
 
